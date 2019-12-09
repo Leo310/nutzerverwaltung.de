@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang='de'>
+	<head>
+		<meta charset ="utf-8">
+		<title>nutzerverwaltung</title>
+		<link href="design.css" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap" rel="stylesheet">
+		<link rel="icon" href="images/team.png" type="image/png" />
+		</head>
+<body bgcolor="#272727", text="#ffffff">
