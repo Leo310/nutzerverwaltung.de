@@ -28,7 +28,7 @@ if(!$existent){
 	$_SESSION['salt'] = salt();
 	$userarray = array($name, password_hash($pw.$_SESSION['salt'], PASSWORD_DEFAULT), $rechte, $_SESSION['salt']);
 	$user = implode(";", $userarray);
-	file_put_contents("include/nutzer.txt", "\n".$user, FILE_APPEND);
+	file_put_contents("include/nutzer.txt", $user, FILE_APPEND);
 	$_SESSION['user'] = $name;
 	header("location:start.php");
 
