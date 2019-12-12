@@ -4,6 +4,10 @@
   if (isset($_SESSION['user']) && $_SESSION['rechte'] == "admin") header("location:startadmin.php");
   if (isset($_SESSION['user']) && $_SESSION['rechte'] == "nutzer") header("location:start.php");
   
+  include('include/dbconnect');
+  $conn = OpenCon();
+  echo "Connected";
+  CloseCon($conn);
   include('include/inc_htmlhead');
 
   $error = "";
