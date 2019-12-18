@@ -1,16 +1,14 @@
+
 <?php
   session_start();
   // ist jemand angemeldet?
   if (isset($_SESSION['user']) && $_SESSION['rechte'] == "admin") header("location:startadmin.php");
   if (isset($_SESSION['user']) && $_SESSION['rechte'] == "nutzer") header("location:start.php");
-  
-  include('include/dbconnect');
-  $conn = OpenCon();
-  echo "Connected";
-  CloseCon($conn);
-  include('include/inc_htmlhead');
+ 
+include('include/dbconnect.php');
+OpenCon();
+include('include/inc_htmlhead');
 
-  $error = "";
  if (isset($_SESSION['error'])) $error = $_SESSION['error'];
  ?>
 <body class="body" background="images/bild3.jpg">   <!-- Photo by Ricardo Gomez Angel on Unsplash -->
