@@ -3,8 +3,8 @@
 if(isset($_SESSION['user'])) header("location:start.php");
 
 //connect to db
-include('include/dbconnect.php');
-$conn = OpenCon();
+//include('include/dbconnectpdo.php');
+include('include/dbconnectmysqli.php');
 
 $name = $pw = $bpw = "";
 $rechte = "nutzer";
@@ -33,6 +33,7 @@ if(!$existent){
 	$_SESSION['salt'] = salt();
 	$hashedpw =  password_hash($pw.$_SESSION['salt'], PASSWORD_DEFAULT);
 	$salt = $_SESSION['salt'];	
+	$email = "test@gmail.com";
 
 	//nutzer.txt
 	$userarray = array($name, $hashedpw, $rechte, $salt);
@@ -40,8 +41,10 @@ if(!$existent){
 	file_put_contents("include/nutzer.txt","\n".$user, FILE_APPEND);
 
 	//database
-	$sqlquery="insert into user(name, email, pswd, rechte, salt) values('$name', 'test@gmail.com', '$hashedpw', '$rechte', '$salt')";
-	mysqli_query($conn, $sqlquery);	
+	$sqlquery="insert into user(name, email, pswd, rechte, salt) values(?, ?, ?, ?, ?)";
+	//$conn->prepare($sqlquery)->execute([$name, $email, $hashedpw, $rechte, $salt]);
+	//mysqli_query($conn, $sqlquery);
+	prepared_query($conn, $sqlquery, [$name, $email,$hashedpw, $rechte, $salt]);
 
 	$_SESSION['user'] = $name;
 	header("location:start.php");
