@@ -5,8 +5,8 @@
   if (isset($_SESSION['user']) && $_SESSION['rechte'] == "admin") header("location:startadmin.php");
   if (isset($_SESSION['user']) && $_SESSION['rechte'] == "nutzer") header("location:start.php");
  
-include('include/dbconnect.php');
-OpenCon();
+//include('include/dbconnect.php');
+//OpenCon();
 include('include/inc_htmlhead');
 
  if (isset($_SESSION['error'])) $error = $_SESSION['error'];

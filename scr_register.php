@@ -1,6 +1,11 @@
 <?php
 	session_start();
 if(isset($_SESSION['user'])) header("location:start.php");
+
+//connect to db
+include('include/dbconnect.php');
+$conn = OpenCon();
+
 $name = $pw = $bpw = "";
 $rechte = "nutzer";
 $existent = false;
@@ -26,9 +31,18 @@ foreach($users as $user){
 if(!$existent){
 	if($pw == $bpw){
 	$_SESSION['salt'] = salt();
-	$userarray = array($name, password_hash($pw.$_SESSION['salt'], PASSWORD_DEFAULT), $rechte, $_SESSION['salt']);
+	$hashedpw =  password_hash($pw.$_SESSION['salt'], PASSWORD_DEFAULT);
+	$salt = $_SESSION['salt'];	
+
+	//nutzer.txt
+	$userarray = array($name, $hashedpw, $rechte, $salt);
 	$user = implode(";", $userarray);
-	file_put_contents("include/nutzer.txt", $user, FILE_APPEND);
+	file_put_contents("include/nutzer.txt","\n".$user, FILE_APPEND);
+
+	//database
+	$sqlquery="insert into user(name, email, pswd, rechte, salt) values('$name', 'test@gmail.com', '$hashedpw', '$rechte', '$salt')";
+	mysqli_query($conn, $sqlquery);	
+
 	$_SESSION['user'] = $name;
 	header("location:start.php");
 
